@@ -9,7 +9,7 @@ from sqlalchemy import create_engine
 
 
 # Create the SQL connection to pets_db as specified in your secrets file.
-conn = st.connection('pets_db', type='sql')
+conn = st.connection('bgm_db', type='sql')
 
 # Insert some data with conn.session.
 with conn.session as s:
@@ -19,16 +19,9 @@ with conn.session as s:
     (MEASURE_DATE TEXT NOT NULL, 
     MEASURE_TYPE TEXT NOT NULL,
     MG_DL REAL NOT NULL,
-    PRIMARY KEY (MEASURE_DATE, MEASURE_TYPE)
-    );""")
+    PRIMARY KEY (MEASURE_DATE, MEASURE_TYPE) );""")
     )
-    # s.execute(text('DELETE FROM pet_owners;'))
-    # pet_owners = {'jerry': 'fish', 'barbara': 'cat', 'alex': 'puppy'}
-    # for k in pet_owners:
-    #     s.execute(
-    #         text('INSERT INTO pet_owners (person, pet) VALUES (:owner, :pet);'),
-    #         params=dict(owner=k, pet=pet_owners[k])
-    #     )
+
     s.commit()
 
 
@@ -43,7 +36,6 @@ with st.sidebar:
         submit_button = st.form_submit_button(label='Submit')
 
         if submit_button:
-            conn = st.connection('pets_db', type='sql')
             with conn.session as s:
                 s.execute(
                     text("""INSERT INTO BLOOD_GLUCOSE_MONITOR_LOG  
