@@ -58,15 +58,16 @@ def run_query_without_data(query):
     with conn.cursor() as cur:
         cur.execute(query)
 
-
-run_query_without_data("""
-    CREATE TABLE IF NOT EXISTS dbo.BLOOD_GLUCOSE_MONITOR_LOG 
+try:
+    run_query_without_data("""
+    CREATE TABLE dbo.BLOOD_GLUCOSE_MONITOR_LOG 
     (MEASURE_DATE VARCHAR(100) NOT NULL, 
     MEASURE_TYPE VARCHAR(100) NOT NULL,
     MG_DL DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (MEASURE_DATE, MEASURE_TYPE)
     );""")
-
+except Exception as e:
+    pass
 
 with st.sidebar:
     st.markdown("<h1 style='color: aqua;'>Blood Glucose Monitoring App</h1>", unsafe_allow_html=True)
