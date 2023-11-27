@@ -58,26 +58,14 @@ def run_query_without_data(query):
     with conn.cursor() as cur:
         cur.execute(query)
 
-# Insert some data with conn.session.
-with conn.session as s:
-    #s.execute(text("DROP TABLE IF EXISTS BLOOD_GLUCOSE_MONITOR_LOG;"))
-    s.execute(text("""
+
+run_query_without_data("""
     CREATE TABLE IF NOT EXISTS dbo.BLOOD_GLUCOSE_MONITOR_LOG 
     (MEASURE_DATE VARCHAR(100) NOT NULL, 
     MEASURE_TYPE VARCHAR(100) NOT NULL,
     MG_DL DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (MEASURE_DATE, MEASURE_TYPE)
     );""")
-    )
-    # s.execute(text('DELETE FROM pet_owners;'))
-    # pet_owners = {'jerry': 'fish', 'barbara': 'cat', 'alex': 'puppy'}
-    # for k in pet_owners:
-    #     s.execute(
-    #         text('INSERT INTO pet_owners (person, pet) VALUES (:owner, :pet);'),
-    #         params=dict(owner=k, pet=pet_owners[k])
-    #     )
-    s.commit()
-
 
 
 with st.sidebar:
