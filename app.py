@@ -73,6 +73,21 @@ with st.sidebar:
             st.toast('Measurement Recorded!!', icon='🎉')
 
 
+
+with st.sidebar:
+    st.markdown("<h2 style='color: aqua;'>Remove a Measurement</h2>", unsafe_allow_html=True)
+    with st.form(key='my_form1'):
+        measure_date = st.date_input("Log Date ?", value="today", format="MM/DD/YYYY", key="measure_date_key")
+        # Format the datetime object to 'YYYY-MM-DD'
+        formatted_measure_date = measure_date.strftime('%Y-%m-%d')
+        measure_type = st.selectbox('Measure Type ?',('Fasting', 'Breakfast', 'Lunch', 'Dinner'))
+        submit_button1 = st.form_submit_button(label='Remove')
+
+        if submit_button1:
+            run_query_without_data(f"DELETE FROM dbo.BLOOD_GLUCOSE_MONITOR_LOG WHERE MEASURE_DATE = '{measure_date}' AND MEASURE_TYPE = '{measure_type}'")
+            st.toast('Measurement Removed!!', icon='🎉')
+
+
 result = run_query("SELECT MEASURE_DATE, MEASURE_TYPE, CONVERT(VARCHAR(10), MG_DL) AS MG_DL FROM dbo.BLOOD_GLUCOSE_MONITOR_LOG") 
 
 # Remove the parentheses and split by comma
