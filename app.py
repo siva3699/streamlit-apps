@@ -92,7 +92,8 @@ result = run_query("SELECT * FROM dbo.BLOOD_GLUCOSE_MONITOR_LOG")
 st.dataframe(result, hide_index=True)
 
 
-df = pd.DataFrame(result, columns=result.keys())
+
+df = pd.DataFrame(result, columns=["MEASURE_DATE","MEASURE_TYPE","MG_DL"])
 df['MEASURE_DATE'] = pd.to_datetime(df['MEASURE_DATE'])
 
 
