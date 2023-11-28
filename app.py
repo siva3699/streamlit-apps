@@ -7,6 +7,7 @@ import pandas as pd
 import pyodbc
 import os 
 from datetime import datetime
+import ast
 
 
 # Initialize connection.
@@ -89,10 +90,11 @@ with st.sidebar:
 
 result = run_query("SELECT MEASURE_DATE, MEASURE_TYPE, CONVERT(VARCHAR(10), MG_DL) AS MG_DL FROM dbo.BLOOD_GLUCOSE_MONITOR_LOG") 
 
+result = [ ast.literal_eval(rec) for rec in result ]
 
 st.dataframe(result, hide_index=True)
 
-df = pd.DataFrame([result], columns=["MEASURE_DATE","MEASURE_TYPE","MG_DL"])
+df = pd.DataFrame(result, columns=["MEASURE_DATE","MEASURE_TYPE","MG_DL"])
 df['MEASURE_DATE'] = pd.to_datetime(df['MEASURE_DATE'])
 
 
