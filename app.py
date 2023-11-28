@@ -2,10 +2,8 @@
 
 from typing import TYPE_CHECKING
 import streamlit as st
-from sqlalchemy import text
 import altair as alt
 import pandas as pd
-from sqlalchemy import create_engine
 import pyodbc
 import os 
 from datetime import datetime
