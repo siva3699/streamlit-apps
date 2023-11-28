@@ -62,6 +62,7 @@ with st.sidebar:
         formatted_measure_date = measure_date.strftime('%Y-%m-%d')
         measure_type = st.selectbox('Measure Type ?',('Fasting', 'Breakfast', 'Lunch', 'Dinner'))
         mg_dl = st.number_input('MG/DL ?', min_value=70, max_value=250, step=10)
+        measure_time  = st.time_input("Log Time ?", value="now", key="measure_time_key", step=300)
         submit_button = st.form_submit_button(label='Submit')
 
         if submit_button:
