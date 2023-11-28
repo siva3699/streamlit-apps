@@ -87,7 +87,7 @@ with st.sidebar:
                             ( '{formatted_measure_date}', '{measure_type}', {mg_dl} )""" )
 
 
-result = run_query("SELECT * FROM dbo.BLOOD_GLUCOSE_MONITOR_LOG") 
+result = run_query("SELECT MEASURE_DATE, MEASURE_TYPE, CONVERT(VARCHAR(10), MG_DL) AS MG_DL FROM dbo.BLOOD_GLUCOSE_MONITOR_LOG") 
 
 
 st.dataframe(result, hide_index=True)
