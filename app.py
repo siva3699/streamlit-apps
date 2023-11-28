@@ -90,6 +90,10 @@ with st.sidebar:
 
 result = run_query("SELECT MEASURE_DATE, MEASURE_TYPE, CONVERT(VARCHAR(10), MG_DL) AS MG_DL FROM dbo.BLOOD_GLUCOSE_MONITOR_LOG") 
 
+st.write(result)
+
+st.write(type(result))
+
 result = [ ast.literal_eval(rec) for rec in result ]
 
 st.dataframe(result, hide_index=True)
