@@ -70,6 +70,7 @@ with st.sidebar:
                             (MEASURE_DATE, MEASURE_TYPE, MG_DL) 
                             VALUES 
                             ( '{formatted_measure_date}', '{measure_type}', {mg_dl} )""" )
+            st.toast('Measurement Recorded!!', icon='🎉')
 
 
 result = run_query("SELECT MEASURE_DATE, MEASURE_TYPE, CONVERT(VARCHAR(10), MG_DL) AS MG_DL FROM dbo.BLOOD_GLUCOSE_MONITOR_LOG") 
