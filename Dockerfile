@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:3.10-alpine
 COPY . /app
 WORKDIR /app
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | tee /etc/apt/trusted.gpg.d/microsoft.asc \
