@@ -7,23 +7,7 @@ import pandas as pd
 import pyodbc
 import os 
 from datetime import datetime
-import ast
 
-
-# Initialize connection.
-# Uses st.cache_resource to only run once.
-# @st.cache_resource
-# def init_connection():
-#     return pyodbc.connect(
-#         "DRIVER={ODBC Driver 17 for SQL Server};SERVER="
-#         + st.secrets["server"]
-#         + ";DATABASE="
-#         + st.secrets["database"]
-#         + ";UID="
-#         + st.secrets["username"]
-#         + ";PWD="
-#         + st.secrets["password"]
-#     )
 
 @st.cache_resource
 def init_connection():
