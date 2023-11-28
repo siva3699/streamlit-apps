@@ -55,6 +55,7 @@ def run_query(query):
 def run_query_without_data(query):
     with conn.cursor() as cur:
         cur.execute(query)
+        cur.commit()
 
 try:
     run_query_without_data("""
