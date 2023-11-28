@@ -96,7 +96,7 @@ results = [ tuple(rec) for rec in result ]
 df = pd.DataFrame(results, columns=["MEASURE_DATE","MEASURE_TYPE","MG_DL"])
 df['MEASURE_DATE'] = pd.to_datetime(df['MEASURE_DATE'])
 
-st.dataframe(df, hide_index=True)
+edited_df = st.data_editor(df, num_rows="dynamic", hide_index=True)
 
 line_chart = alt.Chart(df).mark_line().encode(
     x='MEASURE_DATE:T',
