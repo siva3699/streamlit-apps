@@ -2,5 +2,4 @@ streamlit
 plotly
 pandas
 pyarrow
-SQLAlchemy
 pyodbc
