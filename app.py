@@ -92,9 +92,7 @@ result = run_query("SELECT MEASURE_DATE, MEASURE_TYPE, CONVERT(VARCHAR(10), MG_D
 
 st.dataframe(result, hide_index=True)
 
-
-
-df = pd.DataFrame(result, columns=["MEASURE_DATE","MEASURE_TYPE","MG_DL"])
+df = pd.DataFrame([result], columns=["MEASURE_DATE","MEASURE_TYPE","MG_DL"])
 df['MEASURE_DATE'] = pd.to_datetime(df['MEASURE_DATE'])
 
 
