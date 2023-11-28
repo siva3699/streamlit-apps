@@ -1,8 +1,8 @@
 FROM python:3.10
 COPY . /app
 WORKDIR /app
-RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc \
-    && curl https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/prod.list | sudo tee /etc/apt/sources.list.d/mssql-release.list \
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | tee /etc/apt/trusted.gpg.d/microsoft.asc \
+    && curl https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/prod.list | tee /etc/apt/sources.list.d/mssql-release.list \
     && apt-get -y update \
     && ACCEPT_EULA=Y apt-get install -y msodbcsql17 \
     && ACCEPT_EULA=Y apt-get install -y mssql-tools \
