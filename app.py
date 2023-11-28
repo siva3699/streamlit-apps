@@ -93,12 +93,10 @@ result = run_query("SELECT MEASURE_DATE, MEASURE_TYPE, CONVERT(VARCHAR(10), MG_D
 # Remove the parentheses and split by comma
 results = [ tuple(rec) for rec in result ]
 
-st.dataframe(results, hide_index=True)
-
 df = pd.DataFrame(results, columns=["MEASURE_DATE","MEASURE_TYPE","MG_DL"])
 df['MEASURE_DATE'] = pd.to_datetime(df['MEASURE_DATE'])
 
-
+st.dataframe(df, hide_index=True)
 
 line_chart = alt.Chart(df).mark_line().encode(
     x='MEASURE_DATE:T',
