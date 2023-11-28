@@ -94,11 +94,20 @@ st.write(result)
 
 st.write(type(result))
 
-result = [ ast.literal_eval(rec) for rec in result ]
 
-st.dataframe(result, hide_index=True)
+# Remove the parentheses and split by comma
+elements = [ rec.strip("()").split(',') for rec in result ]
 
-df = pd.DataFrame(result, columns=["MEASURE_DATE","MEASURE_TYPE","MG_DL"])
+# Remove whitespace and single quotes
+results = []
+
+for elem in elements:
+    t = tuple(e.strip().strip("'") for e in elem )
+    results.append(t)
+
+st.dataframe(results, hide_index=True)
+
+df = pd.DataFrame(results, columns=["MEASURE_DATE","MEASURE_TYPE","MG_DL"])
 df['MEASURE_DATE'] = pd.to_datetime(df['MEASURE_DATE'])
 
 
