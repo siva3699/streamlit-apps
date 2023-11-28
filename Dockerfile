@@ -1,18 +1,19 @@
-FROM python:3.10-alpine
+FROM ubuntu:latest
+RUN apt-get update \
+    && apt-get install -y python3.10 python3-pip \
+    && apt-get install -y curl libc6-dev
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | tee /etc/apt/trusted.gpg.d/microsoft.asc 
+RUN curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list | tee /etc/apt/sources.list.d/mssql-release.list
+RUN apt-get update
+RUN dpkg-reconfigure dash
+RUN ACCEPT_EULA=Y apt-get install -y msodbcsql17 \
+    && ACCEPT_EULA=Y apt-get install -y mssql-tools \
+    && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc \
+    && apt-get install -y unixodbc-dev
 COPY . /app
 WORKDIR /app
-RUN apk add curl gnupg
-RUN curl -O https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_17.10.5.1-1_amd64.apk \
-    && curl -O https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/mssql-tools_17.10.1.1-1_amd64.apk \
-    && curl -O https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_17.10.5.1-1_amd64.sig \
-    && curl -O https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/mssql-tools_17.10.1.1-1_amd64.sig \
-    && curl https://packages.microsoft.com/keys/microsoft.asc  | gpg --import - \
-    && gpg --verify msodbcsql17_17.10.5.1-1_amd64.sig msodbcsql17_17.10.5.1-1_amd64.apk \
-    && gpg --verify mssql-tools_17.10.1.1-1_amd64.sig mssql-tools_17.10.1.1-1_amd64.apk \
-    && apk add --allow-untrusted msodbcsql17_17.10.5.1-1_amd64.apk \
-    && apk add --allow-untrusted mssql-tools_17.10.1.1-1_amd64.apk
-
-
+RUN curl https://bootstrap.pypa.io/get-pip.py
+RUN export PATH="$HOME/.local/bin:$PATH"
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 EXPOSE 80
