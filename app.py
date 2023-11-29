@@ -87,6 +87,7 @@ with st.sidebar:
         measure_time  = st.time_input("Log Time ?", value="now", key="measure_time_key1", step=300)
         measure_time_formatted = measure_time.strftime('%H:%M:%S')
         measure_date_time = f"{formatted_measure_date} {measure_time_formatted}"
+        st.write(measure_date_time)
         submit_button1 = st.form_submit_button(label='Remove')
 
         if submit_button1:
@@ -100,7 +101,7 @@ result = run_query("SELECT MEASURE_DATE, MEASURE_TYPE, CONVERT(VARCHAR(10), MG_D
 results = [ tuple(rec) for rec in result ]
 
 df = pd.DataFrame(results, columns=["MEASURE_DATE","MEASURE_TYPE","MG_DL"])
-df['MEASURE_DATE'] = pd.to_datetime(df['MEASURE_DATE'])
+df['MEASURE_DATE'] = pd.to_datetime(df['MEASURE_DATE'], format="%Y-%m-%d %H:%M:%S")
 
 edited_df = st.data_editor(df, num_rows="dynamic", hide_index=True)
 
