@@ -63,14 +63,16 @@ with st.sidebar:
         measure_type = st.selectbox('Measure Type ?',('Fasting', 'Breakfast', 'Lunch', 'Dinner'))
         mg_dl = st.number_input('MG/DL ?', min_value=70, max_value=250, step=10)
         measure_time  = st.time_input("Log Time ?", value="now", key="measure_time_key", step=300)
+        measure_time_formatted = measure_time.strftime('%H:%M:%S')
+        measure_date_time = f"{formatted_measure_date} {measure_time_formatted}"
         submit_button = st.form_submit_button(label='Submit')
 
         if submit_button:
-            run_query_without_data(f"DELETE FROM dbo.BLOOD_GLUCOSE_MONITOR_LOG WHERE MEASURE_DATE = '{measure_date}' AND MEASURE_TYPE = '{measure_type}'")
+            run_query_without_data(f"DELETE FROM dbo.BLOOD_GLUCOSE_MONITOR_LOG WHERE MEASURE_DATE = '{measure_date_time}' AND MEASURE_TYPE = '{measure_type}'")
             run_query_without_data(f"""INSERT INTO dbo.BLOOD_GLUCOSE_MONITOR_LOG  
                             (MEASURE_DATE, MEASURE_TYPE, MG_DL) 
                             VALUES 
-                            ( '{formatted_measure_date}', '{measure_type}', {mg_dl} )""" )
+                            ( '{measure_date_time}', '{measure_type}', {mg_dl} )""" )
             st.toast('Measurement Recorded!!', icon='🎉')
 
 
@@ -82,10 +84,13 @@ with st.sidebar:
         # Format the datetime object to 'YYYY-MM-DD'
         formatted_measure_date = measure_date.strftime('%Y-%m-%d')
         measure_type = st.selectbox('Measure Type ?',('Fasting', 'Breakfast', 'Lunch', 'Dinner'))
+        measure_time  = st.time_input("Log Time ?", value="now", key="measure_time_key1", step=300)
+        measure_time_formatted = measure_time.strftime('%H:%M:%S')
+        measure_date_time = f"{formatted_measure_date} {measure_time_formatted}"
         submit_button1 = st.form_submit_button(label='Remove')
 
         if submit_button1:
-            run_query_without_data(f"DELETE FROM dbo.BLOOD_GLUCOSE_MONITOR_LOG WHERE MEASURE_DATE = '{measure_date}' AND MEASURE_TYPE = '{measure_type}'")
+            run_query_without_data(f"DELETE FROM dbo.BLOOD_GLUCOSE_MONITOR_LOG WHERE MEASURE_DATE = '{measure_date_time}' AND MEASURE_TYPE = '{measure_type}'")
             st.toast('Measurement Removed!!', icon='🎉')
 
 
