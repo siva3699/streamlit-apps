@@ -73,7 +73,7 @@ with st.sidebar:
                             (MEASURE_DATE, MEASURE_TYPE, MG_DL) 
                             VALUES 
                             ( '{measure_date_time}', '{measure_type}', {mg_dl} )""" )
-            st.toast('Measurement Recorded!!', icon='🎉')
+            st.success('Measurement Recorded!!', icon="✅")
 
 
 
@@ -91,7 +91,7 @@ with st.sidebar:
 
         if submit_button1:
             run_query_without_data(f"DELETE FROM dbo.BLOOD_GLUCOSE_MONITOR_LOG WHERE MEASURE_DATE = '{measure_date_time1}' AND MEASURE_TYPE = '{measure_type1}'")
-            st.toast('Measurement Removed!!', icon='🎉')
+            st.success('Measurement Removed!!', icon="✅")
 
 
 result = run_query("SELECT MEASURE_DATE, MEASURE_TYPE, CONVERT(VARCHAR(10), MG_DL) AS MG_DL FROM dbo.BLOOD_GLUCOSE_MONITOR_LOG") 
