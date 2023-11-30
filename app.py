@@ -11,7 +11,7 @@ import json
 
 
 @st.cache_resource
-def init_connection():
+def init_connection(show_spinner=False, ttl=1800):
     return pyodbc.connect(
         "DRIVER={ODBC Driver 17 for SQL Server};SERVER="
         + os.getenv('server')
