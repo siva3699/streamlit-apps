@@ -7,6 +7,7 @@ import pandas as pd
 import pyodbc
 import os 
 from datetime import datetime
+import json
 
 
 @st.cache_resource
@@ -65,6 +66,9 @@ with st.sidebar:
         measure_time  = st.time_input("Log Time ?", value="now", key="measure_time_key", step=300)
         measure_time_formatted = measure_time.strftime('%H:%M:%S')
         measure_date_time = f"{formatted_measure_date} {measure_time_formatted}"
+        diet_items  = ['Nuts', 'Vegetables', 'Meat', 'Cookie', 'Bread', 'Milk', 'Rice', 'Icecream', 'Dumplings', 'Eggs', 'Curry', 'Wings', 'Choclate', 'Ghee', 'Fruits', 'Green Tea', 'Bournvita', 'Candy']
+        diet_options = st.multiselect("Diet ?", options=diet_items, key="diet_key")
+        diet_options_string = json.dumps(diet_options)
         submit_button = st.form_submit_button(label='Submit')
 
         if submit_button:
