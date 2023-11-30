@@ -146,7 +146,7 @@ line_chart = alt.Chart(df).mark_line().encode(
     color='MEASURE_TYPE:N'
 ).properties(title=["Blood Glucose Levels Over Time",""]).configure_title(
     fontSize=20,
-    color='gold'  # You can change 'green' to any desired color
+    color='gold'  
 )
 
 st.write("")
@@ -161,7 +161,7 @@ bar_chart = alt.Chart(df).mark_bar().encode(
     y='mean(MG_DL):Q'
 ).properties(title=["Average Blood Glucose Level by Measurement Type", ""]).configure_title(
     fontSize=20,
-    color='blueviolet'  # You can change 'green' to any desired color
+    color='blueviolet' 
 )
 
 
@@ -176,7 +176,7 @@ histogram = alt.Chart(df).mark_bar().encode(
     y='count()'
 ).properties(title=["Distribution of Blood Glucose Measurements",""]).configure_title(
     fontSize=20,
-    color='darkorange'  # You can change 'green' to any desired color
+    color='darkorange' 
 )
 
 st.write("")
