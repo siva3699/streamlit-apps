@@ -127,6 +127,7 @@ with st.sidebar:
                             ( '{item_name.capitalize()}' )""" )
             st.success('Diet Added!!', icon="✅")
             get_food_items.clear()
+            st.rerun()
 
 
 result = run_query("SELECT MEASURE_DATE, MEASURE_TYPE, CONVERT(VARCHAR(10), MG_DL) AS MG_DL FROM dbo.BLOOD_GLUCOSE_MONITOR_LOG") 
