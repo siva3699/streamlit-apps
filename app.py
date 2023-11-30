@@ -116,7 +116,7 @@ with st.sidebar:
 with st.sidebar:
     st.markdown("<h2 style='color: aqua;'>Add New Diet To The Collection</h2>", unsafe_allow_html=True)
     with st.form(key='my_form2'):
-        item_name      =  st.text_input('Diet Item', max_chars=200)
+        item_name      =  st.text_input("Diet Item", key="diet_item_key", max_chars=200)
         submit_button2 = st.form_submit_button(label='Add')
 
         if submit_button2:
@@ -127,6 +127,7 @@ with st.sidebar:
                             ( '{item_name.capitalize()}' )""" )
             st.success('Diet Added!!', icon="✅")
             get_food_items.clear()
+            del st.session_state['diet_item_key]
             st.rerun()
 
 
