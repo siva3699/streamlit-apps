@@ -116,10 +116,17 @@ with st.sidebar:
 with st.sidebar:
     st.markdown("<h2 style='color: aqua;'>Add New Diet To The Collection</h2>", unsafe_allow_html=True)
     with st.form(key='my_form2'):
+        item_name      =  st.text_input('Diet Item', max_chars=200)
         submit_button2 = st.form_submit_button(label='Add')
 
         if submit_button2:
+            run_query_without_data(f"DELETE FROM [dbo].[BLOOD_GLUCOSE_DIET_FOOD] WHERE LOWER(ITEM_NAME) = '{item_name.lower().strip()}'")
+            run_query_without_data(f"""INSERT INTO dbo.[BLOOD_GLUCOSE_DIET_FOOD] 
+                            (ITEM_NAME) 
+                            VALUES 
+                            ( '{item_name.capitalize()}' )""" )
             st.success('Diet Added!!', icon="✅")
+            get_food_items.clear()
 
 
 result = run_query("SELECT MEASURE_DATE, MEASURE_TYPE, CONVERT(VARCHAR(10), MG_DL) AS MG_DL FROM dbo.BLOOD_GLUCOSE_MONITOR_LOG") 
