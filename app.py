@@ -66,7 +66,9 @@ with st.sidebar:
         measure_time  = st.time_input("Log Time ?", value="now", key="measure_time_key", step=300)
         measure_time_formatted = measure_time.strftime('%H:%M:%S')
         measure_date_time = f"{formatted_measure_date} {measure_time_formatted}"
-        diet_items  = ['Nuts', 'Vegetables', 'Meat', 'Cookie', 'Bread', 'Milk', 'Rice', 'Icecream', 'Dumplings', 'Eggs', 'Curry', 'Wings', 'Choclate', 'Ghee', 'Fruits', 'Green Tea', 'Bournvita', 'Candy']
+        diet_food_result = run_query("SELECT DISTINCT ITEM_NAME FROM [dbo].[BLOOD_GLUCOSE_DIET_FOOD]") 
+        diet_items = [ tuple(rec)[0] for rec in diet_food_result ]
+        #diet_items  = ['Nuts', 'Vegetables', 'Meat', 'Cookie', 'Bread', 'Milk', 'Rice', 'Icecream', 'Dumplings', 'Eggs', 'Curry', 'Wings', 'Choclate', 'Ghee', 'Fruits', 'Green Tea', 'Bournvita', 'Candy']
         diet_options = st.multiselect("Diet ?", options=diet_items, key="diet_key")
         diet_options_string = json.dumps(diet_options)
         submit_button = st.form_submit_button(label='Submit')
@@ -77,6 +79,12 @@ with st.sidebar:
                             (MEASURE_DATE, MEASURE_TYPE, MG_DL) 
                             VALUES 
                             ( '{measure_date_time}', '{measure_type}', {mg_dl} )""" )
+            if len(diet_options) > 0:
+                for food in diet_options:
+                    run_query_without_data(f"""INSERT INTO [dbo].[BLOOD_GLUCOSE_DIET_FOOD]
+                            (MEASURE_DATE, ITEM_NAME) 
+                            VALUES 
+                            ( '{measure_date_time}', '{food}')""" )
             st.success('Measurement Recorded!!', icon="✅")
 
 
