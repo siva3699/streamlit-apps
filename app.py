@@ -94,25 +94,6 @@ with st.sidebar:
             st.success('Measurement Recorded!!', icon="✅")
 
 
-
-with st.sidebar:
-    st.markdown("<h2 style='color: aqua;'>Remove a Measurement</h2>", unsafe_allow_html=True)
-    with st.form(key='my_form1'):
-        measure_date1 = st.date_input("Log Date ?", value="today", format="MM/DD/YYYY", key="measure_date_key1")
-        # Format the datetime object to 'YYYY-MM-DD'
-        formatted_measure_date1 = measure_date1.strftime('%Y-%m-%d')
-        measure_type1 = st.selectbox('Measure Type ?',('Fasting', 'Breakfast', 'Lunch', 'Dinner'))
-        measure_time1  = st.time_input("Log Time ?", value="now", key="measure_time_key1", step=300)
-        measure_time_formatted1 = measure_time1.strftime('%H:%M:%S')
-        measure_date_time1 = f"{formatted_measure_date1} {measure_time_formatted1}"
-        submit_button1 = st.form_submit_button(label='Remove')
-
-        if submit_button1:
-            run_query_without_data(f"DELETE FROM dbo.BLOOD_GLUCOSE_MONITOR_LOG WHERE MEASURE_DATE = '{measure_date_time1}' AND MEASURE_TYPE = '{measure_type1}'")
-            st.success('Measurement Removed!!', icon="✅")
-
-
-
 with st.sidebar:
     st.markdown("<h2 style='color: aqua;'>Add New Diet To The Collection</h2>", unsafe_allow_html=True)
     with st.form(key='my_form2'):
@@ -130,6 +111,24 @@ with st.sidebar:
             del st.session_state['diet_item_key']
             st.rerun()
 
+
+
+
+with st.sidebar:
+    st.markdown("<h2 style='color: aqua;'>Remove a Measurement</h2>", unsafe_allow_html=True)
+    with st.form(key='my_form1'):
+        measure_date1 = st.date_input("Log Date ?", value="today", format="MM/DD/YYYY", key="measure_date_key1")
+        # Format the datetime object to 'YYYY-MM-DD'
+        formatted_measure_date1 = measure_date1.strftime('%Y-%m-%d')
+        measure_type1 = st.selectbox('Measure Type ?',('Fasting', 'Breakfast', 'Lunch', 'Dinner'))
+        measure_time1  = st.time_input("Log Time ?", value="now", key="measure_time_key1", step=300)
+        measure_time_formatted1 = measure_time1.strftime('%H:%M:%S')
+        measure_date_time1 = f"{formatted_measure_date1} {measure_time_formatted1}"
+        submit_button1 = st.form_submit_button(label='Remove')
+
+        if submit_button1:
+            run_query_without_data(f"DELETE FROM dbo.BLOOD_GLUCOSE_MONITOR_LOG WHERE MEASURE_DATE = '{measure_date_time1}' AND MEASURE_TYPE = '{measure_type1}'")
+            st.success('Measurement Removed!!', icon="✅")
 
 result = run_query("SELECT MEASURE_DATE, MEASURE_TYPE, CONVERT(VARCHAR(10), MG_DL) AS MG_DL FROM dbo.BLOOD_GLUCOSE_MONITOR_LOG") 
 
