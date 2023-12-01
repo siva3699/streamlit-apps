@@ -127,7 +127,7 @@ with st.sidebar:
                             ( '{item_name.capitalize()}' )""" )
             st.success('Diet Added!!', icon="✅")
             get_food_items.clear()
-            del st.session_state['diet_item_key]
+            del st.session_state['diet_item_key']
             st.rerun()
 
 
